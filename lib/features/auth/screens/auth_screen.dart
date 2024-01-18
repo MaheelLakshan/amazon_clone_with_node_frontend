@@ -1,3 +1,4 @@
+import 'package:amazon_clone_with_node_frontend/common/widgets/custom_button.dart';
 import 'package:amazon_clone_with_node_frontend/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone_with_node_frontend/constants/global_variables.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,16 @@ class _AuthScreenState extends State<AuthScreen> {
           child: Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'welcome',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
             ),
             ListTile(
+              tileColor: _auth == Auth.signup
+                  ? GlobalVariables.backgroundColor
+                  : GlobalVariables.greyBackgroundColor,
               title: Text(
                 'Create Account',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -85,12 +90,19 @@ class _AuthScreenState extends State<AuthScreen> {
                       CustomTextField(
                         controller: _passwordController,
                         hintText: 'Password',
-                      )
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomButton(text: 'Sign Up', onTap: () {})
                     ],
                   ),
                 ),
               ),
             ListTile(
+              tileColor: _auth == Auth.signin
+                  ? GlobalVariables.backgroundColor
+                  : GlobalVariables.greyBackgroundColor,
               title: Text(
                 'Sign in',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -105,7 +117,37 @@ class _AuthScreenState extends State<AuthScreen> {
                   });
                 },
               ),
-            )
+            ),
+            if (_auth == Auth.signin)
+              Container(
+                padding: const EdgeInsets.all(8),
+                color: GlobalVariables.backgroundColor,
+                child: Form(
+                  key: _signInFormKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomTextField(
+                        controller: _emailController,
+                        hintText: 'Email',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomTextField(
+                        controller: _passwordController,
+                        hintText: 'Password',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomButton(text: 'Sign In', onTap: () {})
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       )),
